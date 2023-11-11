@@ -88,9 +88,6 @@ class App(customtkinter.CTk):
             if issourcegeneration:
                 password = "Copied!"
                 self.password.set(password)
-                password = ""
-                self.password.set(password)
-
         self.password_box = customtkinter.CTkButton(master=self.password_frame, textvariable=self.password,
                                                     command=lambda: set_clipboard(self.password.get(), True))
         self.password_box.place(anchor="center", x=112.5, y=25)
