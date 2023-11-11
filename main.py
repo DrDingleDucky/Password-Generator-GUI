@@ -1,10 +1,6 @@
 import os
 import random
-import re
 from tkinter import PhotoImage, StringVar
-# Check if msgbox can be made (Windows)
-if os.name == "nt":
-    windows = True
 
 import customtkinter
 
@@ -82,56 +78,43 @@ class App(customtkinter.CTk):
         self.password_frame = customtkinter.CTkFrame(master=self.bottom_frame)
         self.password_frame.place(anchor="e", x=470, y=35, width=225, height=50)
 
-        def set_clipboard(text, issourcegeneration=False):
+        def set_clipboard(password):
             self.clipboard_clear()
-            self.clipboard_append(text)
-            if issourcegeneration:
-                password = "Copied!"
-                self.password.set(password)
-        self.password_box = customtkinter.CTkButton(master=self.password_frame, textvariable=self.password,
-                                                    command=lambda: set_clipboard(self.password.get(), True))
+            self.clipboard_append(password)
+            self.password.set("Copied")
+
+        self.password_box = customtkinter.CTkButton(master=self.password_frame, textvariable=self.password, command=lambda: set_clipboard(self.password.get()))
         self.password_box.place(anchor="center", x=112.5, y=25)
 
     def generate_password(self):
         password = ""
-        character_types = []
+        password_characters = ""
 
-        lowercase_characters = "abcdefghijklmnopqrstuvwxyz"
         if self.lowercase_var.get() == "on":
-            character_types.append(lowercase_characters)
+            password_characters += "abcdefghijklmnopqrstuvwxyz"
 
-        uppercase_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         if self.uppercase_var.get() == "on":
-            character_types.append(uppercase_characters)
+            password_characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-        number_characters = "1234567890"
         if self.numbers_var.get() == "on":
-            character_types.append(number_characters)
+            password_characters += "1234567890"
 
-        symbol_characters = "!@#$%&*?+="
         if self.symbols_var.get() == "on":
-            character_types.append(symbol_characters)
+            password_characters += "!@#$%&*?+="
 
-        ambiguous_characters = "^`'\":;/\\<>(){}[]~.,"
         if self.ambiguous_characters_var.get() == "on":
-            character_types.append(ambiguous_characters)
+            password_characters += "^`'\":;/\\<>(){}[]~.,"
 
-        similar_character_list = ["0", "o", "1", "l", "L", "i", "I", "O"]
+        similar_character_list = ["0", "1", "l", "L", "i", "I","o", "O"]
+        if self.exclude_similar_characters.get() == "on":
+            for similar_character in similar_character_list:
+                password_characters = password_characters.replace(similar_character, "")
 
         for _ in range(int(self.password_length.get()[17:-1])):
             try:
-                character_type = random.choice(character_types)
-                chosen_character = random.choice(character_type)
-                password += chosen_character
+                password += random.choice(password_characters)
             except:
-                password = ""
-                if windows:
-                    os.system('msg * "Please select at least one password requirement."')
-                print("Please select at least one password requirement.")
-                break
-        if self.exclude_similar_characters.get() == "on":
-            for similar_character in similar_character_list:
-                password = password.replace(similar_character, random.choice(character_types[2]))
+                password = "ERROR: Invalid Selection"
 
         self.password.set(password)
 
