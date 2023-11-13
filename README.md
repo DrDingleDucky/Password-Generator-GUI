@@ -6,7 +6,7 @@ A random password generator made with customtkinter.
 
 ## Python Version
 
-This project was developed using Python 3.10.10.
+This project was developed using Python 3.12.0.
 
 ## Install Dependencies
 
@@ -14,14 +14,6 @@ Install the necessary dependencies.
 
 ```text
 pip install -r requirements.txt
-```
-
-## Run
-
-Run the program.
-
-```text
-python main.py
 ```
 
 ## Contributing
