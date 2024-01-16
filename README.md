@@ -2,11 +2,7 @@
 
 A random password generator made with customtkinter.
 
-![password_generator_gui.png](README.assets/password_generator_gui.png)
-
-## Python Version
-
-This project was developed using Python 3.12.0.
+![password-generator-gui.png](README.assets/password-generator-gui.png)
 
 ## Install Dependencies
 
