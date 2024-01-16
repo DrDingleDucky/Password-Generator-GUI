@@ -1,6 +1,6 @@
 # Password Generator GUI
 
-A random password generator made with customtkinter.
+A random password generator made with CustomTkinter.
 
 ![password-generator-gui.png](README.assets/password-generator-gui.png)
 
