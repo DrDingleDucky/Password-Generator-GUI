@@ -1,6 +1,6 @@
 import os
 import random
-from tkinter import PhotoImage, StringVar
+import tkinter
 
 import customtkinter
 
@@ -14,16 +14,16 @@ class App(customtkinter.CTk):
         self.geometry("500x300")
         self.resizable(0, 0)
         self.title("Password Generator")
-        self.iconphoto(False, PhotoImage(file=os.path.join("icon", "icon.png")))
+        self.iconphoto(False, tkinter.PhotoImage(file=os.path.join("icon", "icon.png")))
 
-        self.password_length = StringVar(self, f"Password Length (16)")
-        self.lowercase_var = StringVar(self, "on")
-        self.uppercase_var = StringVar(self, "on")
-        self.numbers_var = StringVar(self, "on")
-        self.symbols_var = StringVar(self, "off")
-        self.ambiguous_characters_var = StringVar(self, "off")
-        self.exclude_similar_characters = StringVar(self, "off")
-        self.password = StringVar(self, "")
+        self.password_length = tkinter.StringVar(self, f"Password Length (16)")
+        self.lowercase_var = tkinter.StringVar(self, "on")
+        self.uppercase_var = tkinter.StringVar(self, "on")
+        self.numbers_var = tkinter.StringVar(self, "on")
+        self.symbols_var = tkinter.StringVar(self, "off")
+        self.ambiguous_characters_var = tkinter.StringVar(self, "off")
+        self.exclude_similar_characters = tkinter.StringVar(self, "off")
+        self.password = tkinter.StringVar(self, "")
 
         self.top_frame = customtkinter.CTkFrame(master=self)
         self.top_frame.place(anchor="n", x=250, y=10, w=480, h=70)
@@ -32,8 +32,7 @@ class App(customtkinter.CTk):
         self.password_length_label.place(anchor="n", x=240, y=10)
 
         self.password_slider = customtkinter.CTkSlider(master=self.top_frame, from_=8, to=24,
-                                                       command=lambda length: self.password_length.set(
-                                                           f"Password length ({round(length)})"))
+                                                       command=lambda length: self.password_length.set(f"Password length ({round(length)})"))
         self.password_slider.place(anchor="n", x=240, y=40, w=460, h=20)
         self.password_slider.set(16)
 
@@ -41,11 +40,11 @@ class App(customtkinter.CTk):
         self.middle_frame.place(anchor="center", x=250, y=150, w=480, h=120)
 
         self.lowercase_checkbox = customtkinter.CTkCheckBox(master=self.middle_frame, text="Lowercase (abcde)",
-                                                           variable=self.lowercase_var, onvalue="on", offvalue="off")
+                                                            variable=self.lowercase_var, onvalue="on", offvalue="off")
         self.lowercase_checkbox.place(anchor="nw", x=10, y=10)
 
         self.uppercase_checkbox = customtkinter.CTkCheckBox(master=self.middle_frame, text="Uppercase (ABCDE)",
-                                                           variable=self.uppercase_var, onvalue="on", offvalue="off")
+                                                            variable=self.uppercase_var, onvalue="on", offvalue="off")
         self.uppercase_checkbox.place(anchor="w", x=10, y=60)
 
         self.uppercase_checkbox = customtkinter.CTkCheckBox(master=self.middle_frame, text="Numbers (12345)",
@@ -114,7 +113,7 @@ class App(customtkinter.CTk):
             try:
                 password += random.choice(password_characters)
             except:
-                password = "ERROR: Invalid Selection"
+                password = "error: invalid selection"
 
         self.password.set(password)
 
